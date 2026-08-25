@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>অর্ডার হিসাব — Steadfast Business</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<div id="auth" class="auth-wrap">
+  <div class="auth-card">
+    <div class="brand big"><span class="brand-mark">📊</span><div><b>অর্ডার হিসাব</b><small>Steadfast Business Manager</small></div></div>
+    <div class="auth-tabs"><button class="active" data-auth="login">Login</button><button data-auth="register">Create account</button></div>
+    <form id="loginForm" class="auth-form"><h1>Welcome back 👋</h1><p>Manage parcels, accounts and profit in one place.</p>
+      <label>Username<input id="loginUser" autocomplete="username" required placeholder="Username"></label>
+      <label>Password<input id="loginPass" type="password" autocomplete="current-password" required placeholder="Password"></label>
+      <button class="primary wide" type="submit">Login</button>
+    </form>
+    <form id="registerForm" class="auth-form hidden"><h1>Create your account</h1><p>Each user gets a separate Steadfast account and data.</p>
+      <label>Username<input id="regUser" minlength="3" required placeholder="Username"></label>
+      <label>Password<input id="regPass" type="password" minlength="6" required placeholder="At least 6 characters"></label>
+      <button class="primary wide" type="submit">Create account</button>
+    </form>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+  <header class="mobile-header"><div class="mobile-brand"><span>📊</span><b>অর্ডার হিসাব</b></div><span id="mobileApi" class="mini-pill">API</span></header>
+  <div class="mobile-nav-wrap"><div class="mobile-nav">
+    <button class="nav active" data-tab="dashboard"><span>📊</span>Dashboard</button><button class="nav" data-tab="parcel"><span>🚚</span>Add Parcel</button><button class="nav" data-tab="orders"><span>📦</span>Orders</button><button class="nav" data-tab="expenses"><span>💵</span>Expenses</button><button class="nav" data-tab="suppliers"><span>👥</span>Suppliers</button><button class="nav" data-tab="settings"><span>⚙️</span>Settings</button>
+  </div></div>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">📊</span><div><b>অর্ডার হিসাব</b><small>Steadfast Business</small></div></div>
+    <div class="user-chip"><div class="avatar" id="avatar">U</div><div><b id="sideUser">User</b><small>My account</small></div></div>
+    <nav><button class="nav active" data-tab="dashboard"><span>📊</span>Dashboard</button><button class="nav" data-tab="parcel"><span>🚚</span>Add Parcel</button><button class="nav" data-tab="orders"><span>📦</span>Orders</button><button class="nav" data-tab="expenses"><span>💵</span>Expenses</button><button class="nav" data-tab="suppliers"><span>👥</span>Suppliers</button><button class="nav" data-tab="settings"><span>⚙️</span>Settings</button></nav>
+    <button id="logout" class="logout">↪ Logout</button>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><h2 id="pageTitle">অর্ডার হিসাব</h2><small id="pageSub">Business overview</small></div><div class="top-actions"><span id="apiPill" class="pill off">API not connected</span><button id="logoutTop" class="logout-top">Logout</button></div></header>
+
+    <section id="dashboard" class="tab">
+      <div class="hero"><div><span class="eyebrow">BUSINESS OVERVIEW</span><h1>Good day, <span id="helloUser">User</span> 👋</h1><p>Track your Steadfast parcels and business performance.</p></div><button class="primary" onclick="openTab('parcel')">＋ নতুন অর্ডার</button></div>
+      <div id="stats" class="stats-grid"></div>
+      <div class="dashboard-order card"><div class="card-head"><div><span class="eyebrow">QUICK ACTION</span><h2>＋ নতুন অর্ডার</h2><p>Customer ও parcel information দিন</p></div><span class="round big-round">📦</span></div>
+        <form id="quickOrderForm"><div class="form-grid compact"><label>অর্ডার আইডি<input id="q_invoice" placeholder="যেমন: ORD-1001"></label><label>Customer নাম *<input id="q_customer" required placeholder="Customer নাম"></label><label>মোবাইল নাম্বার *<input id="q_phone" required placeholder="01XXXXXXXXX"></label><label>Product নাম<input id="q_product" placeholder="পণ্যের নাম"></label><label>District *<select id="q_district" required><option value="">Select District</option></select></label><label>Thana / Upazila *<select id="q_thana" required disabled><option value="">Select District first</option></select></label><label class="full">ঠিকানা *<textarea id="q_address" rows="2" required placeholder="Full delivery address"></textarea></label><label>COD Amount *<input id="q_cod" type="number" min="0" step="0.01" required placeholder="0"></label><label>Weight (kg)<input id="q_weight" type="number" min="0.1" step="0.1" value="1"></label></div><div class="form-actions"><button class="secondary" type="button" onclick="openTab('parcel')">Full Entry</button><button class="primary" type="submit">🚚 Save & Send</button></div></form>
+      </div>
+    </section>
+
+    <section id="parcel" class="tab hidden"><div class="section-title"><div><span class="eyebrow">COURIER</span><h1>নতুন অর্ডার / Add Parcel</h1><p>Steadfast-style English District / Thana dropdown.</p></div></div>
+      <div class="card form-card"><form id="parcelForm">
+        <div class="form-section"><h3>Customer Information</h3><div class="form-grid"><label>Customer Name *<input id="customer_name" required placeholder="Customer full name"></label><label>Phone *<input id="customer_phone" required inputmode="numeric" placeholder="01XXXXXXXXX"></label><label>Alternative Phone<input id="alternative_phone" inputmode="numeric" placeholder="Optional"></label><label>Email<input id="recipient_email" type="email" placeholder="Optional"></label></div></div>
+        <div class="form-section"><h3>Delivery Location</h3><div class="form-grid"><label>District *<select id="district" required><option value="">Select District</option></select></label><label>Thana / Upazila *<select id="thana" required disabled><option value="">Select District first</option></select></label><label class="full">Full Address *<textarea id="address" required rows="3" placeholder="House, road, area, landmark"></textarea></label></div></div>
+        <div class="form-section"><h3>Parcel & Payment</h3><div class="form-grid"><label>Invoice / Order ID<input id="invoice" placeholder="Leave blank to auto-generate"></label><label>COD Amount *<input id="cod_amount" type="number" min="0" step="0.01" required placeholder="0"></label><label>Weight (kg)<input id="weight" type="number" min="0.1" step="0.1" value="1"></label><label>Quantity<input id="total_lot" type="number" min="1" value="1"></label><label>Supplier Name<input id="supplier_name" placeholder="Optional"></label><label>Supplier Cost<input id="supplier_cost" type="number" min="0" step="0.01" value="0"></label><label>Delivery Charge<input id="delivery_charge" type="number" min="0" step="0.01" value="0"></label><label>Delivery Type<select id="delivery_type"><option value="0">Home Delivery</option><option value="1">Point Delivery</option></select></label><label class="full">Item Description<input id="item_description" placeholder="Product name / description"></label><label class="full">Note<textarea id="note" rows="2" placeholder="Optional note for courier"></textarea></label></div></div>
+        <div class="form-actions"><button type="button" class="secondary" id="saveOnly">Save Order</button><button type="submit" class="primary" id="sendNow">🚚 Save & Send to Steadfast</button></div>
+      </form></div>
+    </section>
+
+    <section id="orders" class="tab hidden"><div class="section-title"><div><span class="eyebrow">MANAGEMENT</span><h1>Orders</h1><p>CN# / Parcel ID এবং Tracking ID একসাথে দেখুন।</p></div></div><div class="card"><div class="toolbar"><input id="orderSearch" placeholder="Search invoice, customer, phone, CN# or tracking…"><button class="secondary" onclick="loadOrders()">↻ Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>COD</th><th>CN# / Parcel ID</th><th>Tracking ID</th><th>Status</th><th>Action</th></tr></thead><tbody id="ordersBody"></tbody></table></div><div id="mobileOrders" class="mobile-orders"></div></div></section>
+
+    <section id="expenses" class="tab hidden"><div class="section-title"><div><span class="eyebrow">FINANCE</span><h1>Expenses</h1><p>Business expenses for this account.</p></div></div><div class="grid-2"><div class="card"><h3>Add expense</h3><form id="expenseForm" class="stack"><label>Title<input id="expense_title" required></label><label>Amount<input id="expense_amount" type="number" min="0" step="0.01" required></label><label>Note<textarea id="expense_note" rows="3"></textarea></label><button class="primary">Save expense</button></form></div><div class="card"><div class="card-head"><h3>Recent expenses</h3><span class="round">৳</span></div><div id="expenseList" class="list"></div></div></div></section>
+
+    <section id="suppliers" class="tab hidden"><div class="section-title"><div><span class="eyebrow">SUPPLIER</span><h1>Suppliers</h1><p>Manage supplier contacts and balances.</p></div></div><div class="grid-2"><div class="card"><h3>Add supplier</h3><form id="supplierForm" class="stack"><label>Name<input id="supplier_name2" required></label><label>Phone<input id="supplier_phone"></label><label>Address<textarea id="supplier_address" rows="2"></textarea></label><div class="form-grid"><label>Paid<input id="supplier_paid" type="number" min="0" value="0"></label><label>Due<input id="supplier_due" type="number" min="0" value="0"></label></div><button class="primary">Save supplier</button></form></div><div class="card"><h3>Supplier list</h3><div id="supplierList" class="list"></div></div></div></section>
+
+    <section id="settings" class="tab hidden"><div class="section-title"><div><span class="eyebrow">ACCOUNT</span><h1>Settings</h1><p>প্রত্যেক user নিজের Steadfast API account ব্যবহার করবে।</p></div></div><div class="grid-2"><div class="card"><div class="card-head"><div><h3>Steadfast API</h3><p class="muted">API Key এবং Secret Key শুধু আপনার account-এর জন্য।</p></div><span class="round">🔑</span></div><form id="settingsForm" class="stack"><label>API Key<input id="sfKey" type="password" placeholder="Enter Steadfast API Key"></label><label>Secret Key<input id="sfSecret" type="password" placeholder="Enter Secret Key"></label><div class="form-actions"><button type="button" class="secondary" id="testApi">Test connection</button><button class="primary">Save credentials</button></div></form><div id="settingsMsg" class="notice"></div></div><div class="card"><h3>Account</h3><div class="account-box"><div class="avatar large" id="settingsAvatar">U</div><div><b id="settingsUser">User</b><small>Private workspace</small></div></div><div class="security"><span>🔒</span><div><b>Private data</b><p>Orders, expenses and API credentials are filtered by logged-in user.</p></div></div></div></div></section>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body></html>
