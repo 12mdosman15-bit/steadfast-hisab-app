@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steadfast Business হিসাব</title>
+<style>
+:root{--blue:#0d47a1;--green:#087f5b;--bg:#f4f6fa;--card:#fff;--text:#172033;--muted:#687386;--danger:#b71c1c}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,#0d47a1,#1260d8);color:#fff;padding:18px;text-align:center;font-size:23px;font-weight:800;position:sticky;top:0;z-index:10}
+nav{display:flex;gap:8px;overflow:auto;padding:10px;background:#fff;position:sticky;top:64px;z-index:9;border-bottom:1px solid #ddd}nav button{white-space:nowrap;border:0;background:#edf1f7;padding:11px 14px;border-radius:12px;font-weight:700}nav button.active{background:#0d47a1;color:#fff}
+.wrap{max-width:950px;margin:auto;padding:14px}.card{background:var(--card);border-radius:16px;padding:17px;margin-bottom:14px;box-shadow:0 2px 12px #00000012}h2{margin:0 0 14px;font-size:21px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-weight:700;display:block;margin:8px 0 6px}input,select,textarea{width:100%;padding:13px;border:1px solid #d7dce5;border-radius:11px;font-size:16px;background:#fff}textarea{min-height:80px}.full{grid-column:1/-1}
+button.primary{width:100%;padding:14px;border:0;border-radius:11px;background:#078a55;color:#fff;font-size:17px;font-weight:800;margin-top:12px}button.secondary{padding:10px 12px;border:0;border-radius:10px;background:#e9eef7;font-weight:700}button.danger{background:#ffe7e7;color:#b71c1c}.msg{padding:12px;border-radius:10px;margin:10px 0;display:none}.ok{background:#e6f7ed;color:#096b3e}.err{background:#ffe7e7;color:#a00000}.hidden{display:none!important}.hint{font-size:12px;color:var(--muted);margin-top:5px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.right{margin-left:auto}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#fff;padding:14px;border-radius:14px;box-shadow:0 2px 10px #0000000c}.stat b{display:block;font-size:22px;margin-top:5px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}th{background:#f7f9fc}.badge{display:inline-block;padding:5px 8px;border-radius:20px;background:#eef2f7;font-weight:700}.delivered{background:#ddf6e8;color:#087443}.cancelled,.returned{background:#ffe1e1;color:#a40000}.submitted{background:#e5efff;color:#0d47a1}.auth{max-width:460px;margin:35px auto}.tabs2{display:flex;gap:8px;margin-bottom:14px}.tabs2 button{flex:1;padding:12px;border:0;border-radius:10px;background:#edf1f7;font-weight:700}.tabs2 button.active{background:#0d47a1;color:#fff}.small{font-size:13px}.success{color:#087f5b;font-weight:700}.warning{color:#9a6700;font-weight:700}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.full{grid-column:auto}table{font-size:12px}}
+</style>
+</head>
+<body>
+<header>📦 Steadfast Business হিসাব</header>
+<div id="authScreen" class="wrap auth">
+  <div class="card">
+    <h2>🔐 Steadfast Business</h2>
+    <p class="hint">প্রত্যেক user নিজের account এবং নিজের Steadfast API দিয়ে আলাদা data রাখবে।</p>
+    <div class="tabs2"><button id="loginTab" class="active" onclick="authMode('login')">Login</button><button id="registerTab" onclick="authMode('register')">Register</button></div>
+    <form id="authForm">
+      <div id="nameWrap" class="hidden"><label>নাম</label><input id="authName"></div>
+      <label>Email</label><input id="authEmail" type="email" required autocomplete="email">
+      <label>Password</label><input id="authPassword" type="password" required minlength="6" autocomplete="current-password">
+      <button class="primary" id="authBtn">Login</button>
+    </form>
+    <div class="hint" style="margin-top:12px">Railway-তে app খুললে Backend URL আলাদা করে দিতে হবে না। HTML file দিয়ে চালালে নিচের URL field ব্যবহার করুন।</div>
+    <label>Backend URL (শুধু HTML file হলে)</label><input id="backendUrlAuth" placeholder="https://your-app.up.railway.app">
+    <button class="secondary" style="margin-top:8px" onclick="saveBackendUrlAuth()">Backend URL Save</button>
+  </div>
+</div>
+
+<div id="appScreen" class="hidden">
+<nav id="nav"><button data-tab="dashboard">📊 Dashboard</button><button data-tab="add">🚚 Add Parcel</button><button data-tab="orders">📦 Orders</button><button data-tab="expenses">💸 খরচ</button><button data-tab="suppliers">🏭 Supplier</button><button data-tab="settings">⚙️ Settings</button><button onclick="logout()">🚪 Logout</button></nav>
+<div class="wrap"><div id="msg" class="msg"></div>
+<section id="dashboard" class="tab"><div class="card"><div class="row"><h2>📊 Dashboard</h2><span class="right small" id="who"></span></div><div class="stats" id="stats"></div></div><div class="card"><div class="row"><h2 style="margin:0">🚚 Steadfast</h2><button class="secondary right" onclick="checkBalance()">Balance Check</button></div><div id="balance" class="hint">Settings-এ API Key/Secret save করলে balance দেখা যাবে।</div></div></section>
+<section id="add" class="tab hidden"><div class="card"><h2>🚚 Add Parcel</h2><form id="orderForm"><div class="grid">
+<div><label>Phone *</label><input id="phone" required inputmode="numeric" maxlength="11"></div><div><label>Alternative Phone</label><input id="alternative_phone" inputmode="numeric" maxlength="11"></div>
+<div><label>Name *</label><input id="customer_name" required></div><div><label>Invoice *</label><input id="invoice" required placeholder="ORD-1001"></div>
+<div class="full"><label>Address *</label><textarea id="address" required placeholder="বাড়ি/রোড/এলাকা"></textarea></div>
+<div><label>District *</label><select id="district" required><option value="">জেলা নির্বাচন করুন</option></select></div><div><label>Thana / Upazila *</label><select id="thana" required disabled><option value="">আগে জেলা নির্বাচন করুন</option></select></div>
+<div><label>COD Amount *</label><input id="cod_amount" required type="number" min="0" step="0.01"></div><div><label>Supplier দাম *</label><input id="supplier_cost" required type="number" min="0" step="0.01" value="0"></div>
+<div><label>Supplier নাম</label><input id="supplier_name" placeholder="Supplier"></div><div><label>Delivery Charge *</label><input id="delivery_charge" required type="number" min="0" step="0.01" value="0"></div>
+<div><label>Quantity</label><input id="quantity" type="number" min="1" value="1"></div><div><label>Weight (KG)</label><input id="weight" type="number" min="0" step="0.01" value="0"></div>
+<div class="full"><label>Item Description</label><textarea id="item_description" maxlength="400"></textarea></div><div class="full"><label>Note</label><textarea id="note" maxlength="480"></textarea></div>
+<div><label>Exchange</label><input id="exchange" type="checkbox" style="width:22px;height:22px"></div><div class="full"><div style="display:flex;gap:10px;margin-top:14px"><button class="primary" id="saveOrderBtn" type="button" style="margin-top:0">💾 Save</button><button class="primary" id="saveSendBtn" type="button" style="margin-top:0">🚚 Save & Send Steadfast</button></div></div>
+</div></form></div></section>
+<section id="orders" class="tab hidden"><div class="card"><div class="row"><h2>📦 Orders</h2><button class="secondary right" onclick="loadOrders()">🔄 Refresh</button></div><div style="overflow:auto"><table><thead><tr><th>Invoice</th><th>Customer</th><th>COD</th><th>Supplier</th><th>Delivery</th><th>Status</th><th>CN# / Parcel ID</th><th>Tracking ID</th><th>Action</th></tr></thead><tbody id="ordersBody"></tbody></table></div></div></section>
+<section id="expenses" class="tab hidden"><div class="card"><h2>💸 নতুন খরচ</h2><form id="expenseForm"><div class="grid"><div><label>খরচের নাম</label><input id="expense_title" required></div><div><label>Amount</label><input id="expense_amount" type="number" min="0" step="0.01" required></div><div class="full"><label>Note</label><textarea id="expense_note"></textarea></div></div><button class="primary">খরচ Save</button></form></div><div class="card"><h2>খরচের তালিকা</h2><div style="overflow:auto"><table><thead><tr><th>তারিখ</th><th>খরচ</th><th>Amount</th><th>Note</th></tr></thead><tbody id="expensesBody"></tbody></table></div></div></section>
+<section id="suppliers" class="tab hidden"><div class="card"><h2>🏭 Supplier Payment</h2><form id="paymentForm"><div class="grid"><div><label>Supplier নাম</label><input id="pay_supplier" required></div><div><label>Payment Amount</label><input id="pay_amount" type="number" min="0" step="0.01" required></div><div class="full"><label>Note</label><textarea id="pay_note"></textarea></div></div><button class="primary">Payment Save</button></form></div><div class="card"><h2>Payment History</h2><div style="overflow:auto"><table><thead><tr><th>তারিখ</th><th>Supplier</th><th>Amount</th><th>Note</th></tr></thead><tbody id="paymentsBody"></tbody></table></div></div></section>
+<section id="settings" class="tab hidden"><div class="card"><h2>⚙️ My Steadfast Account</h2><p class="hint">এখানে যে API Key/Secret দেবেন, শুধু আপনার account-এর order/balance-এ ব্যবহার হবে। অন্য user এগুলো দেখতে পারবে না।</p><label>Steadfast API Key</label><input id="sfApi" autocomplete="off" placeholder="API Key"><label>Steadfast Secret Key</label><input id="sfSecret" type="password" autocomplete="off" placeholder="Secret Key"><div style="display:flex;gap:10px;margin-top:10px"><button class="secondary" type="button" onclick="testSF()">🔌 Test Connection</button><button class="primary" type="button" style="margin-top:0" onclick="saveSF()">💾 Save Settings</button></div><div id="sfStatus" style="margin-top:12px"></div></div><div class="card"><h2>👤 My Account</h2><div id="accountInfo"></div></div><div class="card"><h2>🌐 Backend</h2><label>Railway Backend URL</label><input id="backendUrl" placeholder="https://your-service.up.railway.app"><button class="primary" type="button" onclick="saveBackendUrl()">Save Backend URL</button><div id="health" style="margin-top:12px"></div></div></section>
+</div></div>
+<script>
+const $=id=>document.getElementById(id); let API=''; let authModeNow='login'; let currentUser=null; const tabs=[...document.querySelectorAll('.tab')];
+function getApiBase(){const saved=(localStorage.getItem('BACKEND_URL')||'').trim();if(saved)return saved.replace(/\/$/,'');if(/^https?:$/.test(location.protocol))return location.origin;return '';}
+function setAPI(){API=getApiBase();return API;}
+function msg(t,ok=false){const m=$('msg');m.textContent=t;m.className='msg '+(ok?'ok':'err');m.style.display='block';setTimeout(()=>m.style.display='none',5000)}
+async function api(path,opt={}){setAPI();if(!API)throw new Error('Backend URL দিন। Settings/উপরে Backend URL ব্যবহার করুন।');let r;try{r=await fetch(API+path,{...opt,credentials:'include',headers:{'Content-Type':'application/json',...(opt.headers||{})}})}catch(e){throw new Error('Backend connection হচ্ছে না।');}let d={};try{d=await r.json()}catch{}if(!r.ok||d.ok===false)throw new Error(d.message||d.details||('HTTP '+r.status));return d;}
+function authMode(m){authModeNow=m;$('loginTab').classList.toggle('active',m==='login');$('registerTab').classList.toggle('active',m==='register');$('nameWrap').classList.toggle('hidden',m!=='register');$('authBtn').textContent=m==='register'?'Register':'Login';$('authPassword').autocomplete=m==='register'?'new-password':'current-password';}
+$('authForm').addEventListener('submit',async e=>{e.preventDefault();const b=$('authBtn');b.disabled=true;try{const body={email:$('authEmail').value,password:$('authPassword').value};if(authModeNow==='register')body.name=$('authName').value;const d=await api('/api/auth/'+authModeNow,{method:'POST',body:JSON.stringify(body)});currentUser=d.user;showApp();}catch(x){alert(x.message)}finally{b.disabled=false}});
+function saveBackendUrlAuth(){const v=$('backendUrlAuth').value.trim().replace(/\/$/,'');if(!/^https?:\/\//i.test(v)){alert('সঠিক Railway URL দিন।');return}localStorage.setItem('BACKEND_URL',v);alert('Backend URL save হয়েছে। এখন Login/Register করুন।');}
+function saveBackendUrl(){const v=$('backendUrl').value.trim().replace(/\/$/,'');if(!/^https?:\/\//i.test(v)){msg('সঠিক Railway URL দিন।');return}localStorage.setItem('BACKEND_URL',v);API=v;msg('Backend URL save হয়েছে।',true);health();loadGeo();}
+function showTab(id){tabs.forEach(x=>x.classList.toggle('hidden',x.id!==id));document.querySelectorAll('#nav button[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='dashboard')loadDash();if(id==='orders')loadOrders();if(id==='expenses')loadExpenses();if(id==='suppliers')loadPayments();if(id==='settings')loadSettings();}
+document.querySelectorAll('#nav button[data-tab]').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+async function logout(){try{await api('/api/auth/logout')}catch{}currentUser=null;$('appScreen').classList.add('hidden');$('authScreen').classList.remove('hidden');}
+async function boot(){setAPI();$('backendUrlAuth').value=localStorage.getItem('BACKEND_URL')||'';try{const d=await api('/api/auth/me');if(d.logged_in){currentUser=d.user;showApp();}}catch{} }
+async function showApp(){ $('authScreen').classList.add('hidden');$('appScreen').classList.remove('hidden');$('who').textContent=currentUser?currentUser.name+' • '+currentUser.email:'';showTab('dashboard');loadGeo();health(); }
+async function health(){try{const d=await api('/health');$('health').innerHTML='<b>Backend OK</b><br>Database: '+d.database+'<br>My Steadfast: '+(d.steadfast_configured?'Connected':'Not connected')}catch(e){if($('health'))$('health').textContent=e.message}}
+async function loadSettings(){try{const d=await api('/api/steadfast/settings');$('sfApi').value='';$('sfSecret').value='';$('sfStatus').innerHTML=d.configured?'<span class="success">✅ API credentials saved: '+d.api_key+'</span>':'<span class="warning">⚠️ এখনো Steadfast API setup করা হয়নি।</span>';const m=await api('/api/auth/me');$('accountInfo').innerHTML='<b>'+m.user.name+'</b><br>'+m.user.email;}catch(e){msg(e.message)}}
+async function testSF(){try{const d=await api('/api/steadfast/test',{method:'POST',body:JSON.stringify({api_key:$('sfApi').value,secret_key:$('sfSecret').value})});$('sfStatus').innerHTML='<span class="success">✅ '+d.message+'</span><br>'+JSON.stringify(d.balance||{}); }catch(e){$('sfStatus').innerHTML='<span style="color:#b71c1c">❌ '+e.message+'</span>'}}
+async function saveSF(){try{await testSF();if(!$('sfApi').value||!$('sfSecret').value)throw new Error('API Key এবং Secret Key দিন।');const d=await api('/api/steadfast/settings',{method:'POST',body:JSON.stringify({api_key:$('sfApi').value,secret_key:$('sfSecret').value})});$('sfStatus').innerHTML='<span class="success">✅ '+d.message+'</span>';loadGeo();}catch(e){$('sfStatus').innerHTML='<span style="color:#b71c1c">❌ '+e.message+'</span>'}}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+let GEO=[];
+async function loadGeo(){try{const d=await api('/api/geo');GEO=[];(d||[]).forEach(x=>(x.districts||[]).forEach(y=>GEO.push(y)));applyGeo(GEO);}catch(e){msg('Geo load হয়নি: '+e.message)}}
+function applyGeo(ds){ds=(ds||[]).filter(x=>x&&x.name).sort((a,b)=>(a.bn_name||a.name).localeCompare(b.bn_name||b.name,'bn'));$('district').innerHTML='<option value="">জেলা নির্বাচন করুন</option>'+ds.map(x=>`<option value="${esc(x.name)}">${esc(x.bn_name||x.name)}</option>`).join('');}
+$('district').addEventListener('change',()=>{const x=GEO.find(x=>x.name===$('district').value);const up=x?.upazilas||[];$('thana').disabled=!x;$('thana').innerHTML='<option value="">থানা/উপজেলা নির্বাচন করুন</option>'+up.map(u=>`<option value="${esc(u.name)}">${esc(u.bn_name||u.name)}</option>`).join('');});
+function money(x){return '৳ '+Number(x||0).toLocaleString('en-BD',{maximumFractionDigits:2})}
+async function collectOrder(){return{phone:$('phone').value,alternative_phone:$('alternative_phone').value,customer_name:$('customer_name').value,invoice:$('invoice').value,address:$('address').value,district:$('district').value,thana:$('thana').value,cod_amount:+$('cod_amount').value,supplier_cost:+$('supplier_cost').value,supplier_name:$('supplier_name').value,delivery_charge:+$('delivery_charge').value,quantity:+$('quantity').value,weight:+$('weight').value,item_description:$('item_description').value,note:$('note').value,exchange:$('exchange').checked}}
+function clearOrderForm(){$('orderForm').reset();$('quantity').value=1;$('supplier_cost').value=0;$('delivery_charge').value=0;$('weight').value=0;$('thana').disabled=true;$('thana').innerHTML='<option>আগে জেলা নির্বাচন করুন</option>'}
+async function saveOrderOnly(){const b=$('saveOrderBtn');b.disabled=true;try{await api('/api/orders',{method:'POST',body:JSON.stringify(await collectOrder())});msg('💾 Order save হয়েছে।',true);clearOrderForm();loadDash();loadOrders();}catch(e){msg(e.message)}finally{b.disabled=false}}
+async function saveAndSend(){const b=$('saveSendBtn');b.disabled=true;try{const s=await api('/api/orders',{method:'POST',body:JSON.stringify(await collectOrder())});const r=await api('/api/orders/'+s.order.id+'/send',{method:'POST'});msg('🚚 Steadfast-এ পাঠানো হয়েছে। '+(r.order.consignment_id?'CN#: '+r.order.consignment_id+' | ':'')+(r.order.tracking_code?'Tracking: '+r.order.tracking_code:''),true);clearOrderForm();loadDash();loadOrders();}catch(e){msg(e.message)}finally{b.disabled=false}}
+$('saveOrderBtn').onclick=saveOrderOnly;$('saveSendBtn').onclick=saveAndSend;
+async function loadDash(){try{const d=await api('/api/dashboard'),s=d.stats;$('stats').innerHTML=[['মোট Order',s.total_orders],['Delivered',s.delivered],['Pending',s.pending],['Cancel/Return',s.cancelled_returned],['মোট Sales',money(s.gross_sales)],['Supplier দাম',money(s.supplier_cost)],['Delivery',money(s.delivery_charge)],['Order Profit',money(s.order_profit)],['Return Loss',money(s.return_loss)],['অন্যান্য খরচ',money(s.other_expense)],['Net Profit',money(s.net_profit)],['Supplier Paid',money(s.supplier_paid)],['Supplier Due',money(s.supplier_due)]].map(a=>`<div class="stat"><span>${a[0]}</span><b>${a[1]}</b></div>`).join('')}catch(e){msg(e.message)}}
+async function loadOrders(){try{const d=await api('/api/orders');$('ordersBody').innerHTML=d.orders.map(o=>`<tr><td><b>${esc(o.invoice)}</b><br><small>${new Date(o.created_at).toLocaleDateString()}</small></td><td>${esc(o.customer_name)}<br>${esc(o.phone)}<br>${esc(o.district)}, ${esc(o.thana)}</td><td>${money(o.cod_amount)}</td><td>${esc(o.supplier_name)}<br>${money(o.supplier_cost)}</td><td>${money(o.delivery_charge)}</td><td><span class="badge ${o.status}">${esc(o.status)}</span><br><small>${esc(o.steadfast_status)}</small></td><td>${o.consignment_id?`<b>${esc(o.consignment_id)}</b>`:'-'}</td><td>${o.tracking_code?`<b>${esc(o.tracking_code)}</b>`:'-'}</td><td>${(o.status==='saved'||o.status==='pending')?`<button class="secondary" onclick="sendCourier(${o.id})">🚚 Send</button><br>`:''}<button class="secondary" onclick="editDelivery(${o.id},${Number(o.delivery_charge||0)})">✏️ Delivery</button><br><button class="secondary" onclick="sync(${o.id})">🔄 Sync</button><br><select onchange="setStatus(${o.id},this.value)"><option value="">Status</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option><option value="returned">Returned</option><option value="submitted">Pending</option></select></td></tr>`).join('')}catch(e){msg(e.message)}}
+async function editDelivery(id,current){const v=prompt('Delivery Charge কত?',current);if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0)return msg('সঠিক Delivery Charge দিন।');try{await api('/api/orders/'+id+'/delivery-charge',{method:'PATCH',body:JSON.stringify({delivery_charge:n})});loadOrders();loadDash();}catch(e){msg(e.message)}}
+async function sendCourier(id){if(!confirm('এই order Steadfast-এ পাঠাবেন?'))return;try{const r=await api('/api/orders/'+id+'/send',{method:'POST'});msg('Steadfast-এ পাঠানো হয়েছে। '+(r.order.consignment_id?'CN#: '+r.order.consignment_id+' | ':'')+(r.order.tracking_code||''),true);loadOrders();loadDash();}catch(e){msg(e.message)}}
+async function sync(id){try{await api('/api/orders/'+id+'/sync',{method:'POST'});msg('Status update হয়েছে।',true);loadOrders();loadDash();}catch(e){msg(e.message)}}
+async function setStatus(id,s){if(!s)return;try{await api('/api/orders/'+id+'/status',{method:'POST',body:JSON.stringify({status:s})});loadOrders();loadDash();}catch(e){msg(e.message)}}
+$('expenseForm').onsubmit=async e=>{e.preventDefault();try{await api('/api/expenses',{method:'POST',body:JSON.stringify({title:$('expense_title').value,amount:+$('expense_amount').value,note:$('expense_note').value})});e.target.reset();msg('খরচ save হয়েছে।',true);loadExpenses();loadDash();}catch(x){msg(x.message)}};
+async function loadExpenses(){try{const d=await api('/api/expenses');$('expensesBody').innerHTML=d.expenses.map(x=>`<tr><td>${new Date(x.created_at).toLocaleDateString()}</td><td>${esc(x.title)}</td><td>${money(x.amount)}</td><td>${esc(x.note)}</td></tr>`).join('')}catch(e){msg(e.message)}}
+$('paymentForm').onsubmit=async e=>{e.preventDefault();try{await api('/api/supplier-payments',{method:'POST',body:JSON.stringify({supplier_name:$('pay_supplier').value,amount:+$('pay_amount').value,note:$('pay_note').value})});e.target.reset();msg('Supplier payment save হয়েছে।',true);loadPayments();loadDash();}catch(x){msg(x.message)}};
+async function loadPayments(){try{const d=await api('/api/supplier-payments');$('paymentsBody').innerHTML=d.payments.map(x=>`<tr><td>${new Date(x.created_at).toLocaleDateString()}</td><td>${esc(x.supplier_name)}</td><td>${money(x.amount)}</td><td>${esc(x.note)}</td></tr>`).join('')}catch(e){msg(e.message)}}
+async function checkBalance(){try{const d=await api('/api/balance');$('balance').textContent=JSON.stringify(d)}catch(e){msg(e.message)}}
+boot();
+</script>
+
+<section class="card" id="backup-section" style="margin-top:16px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+    <div>
+      <h3 style="margin:0 0 4px;">Backup & Restore</h3>
+      <div style="font-size:13px;opacity:.75;">Keep a copy of your orders, expenses and supplier payments.</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button type="button" class="btn btn-primary" onclick="downloadBackup()">Download Backup</button>
+      <label class="btn btn-secondary" style="cursor:pointer;">
+        Restore Backup
+        <input id="backupFile" type="file" accept=".json,application/json" style="display:none" onchange="restoreBackup(this)">
+      </label>
+    </div>
+  </div>
+</section>
+<script>
+async function downloadBackup(){
+  try{
+    const r=await fetch('/api/backup');
+    if(!r.ok) throw new Error('Backup failed');
+    const blob=await r.blob();
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='steadfast_business_backup.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  }catch(e){ alert('Backup failed.'); }
+}
+async function restoreBackup(input){
+  const file=input.files && input.files[0];
+  if(!file) return;
+  if(!confirm('Restore this backup? Existing orders with the same invoice will be updated.')) { input.value=''; return; }
+  try{
+    const text=await file.text();
+    const data=JSON.parse(text);
+    const r=await fetch('/api/restore',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    });
+    const result=await r.json();
+    if(!r.ok || !result.ok) throw new Error(result.message||'Restore failed');
+    alert('Backup restored successfully.');
+    location.reload();
+  }catch(e){ alert(e.message || 'Restore failed.'); }
+  input.value='';
+}
+</script>
+
+</body></html>
