@@ -8,6 +8,364 @@ BD_GEO maps each district name to a list of upazila/thana names.
 Checked against the current Bangladesh National Portal administrative list.
 """
 
-BD_GEO = {'ঢাকা': ['ধামরাই', 'দোহার', 'কেরাণীগঞ্জ', 'নবাবগঞ্জ', 'সাভার'], 'ফরিদপুর': ['আলফাডাঙ্গা', 'ভাঙ্গা', 'বোয়ালমারী', 'চরভদ্রাসন', 'ফরিদপুর সদর', 'মধুখালী', 'নগরকান্দা', 'সদরপুর', 'সালথা'], 'গাজীপুর': ['গাজীপুর সদর', 'কালিয়াকৈর', 'কালীগঞ্জ', 'কাপাসিয়া', 'শ্রীপুর'], 'গোপালগঞ্জ': ['গোপালগঞ্জ সদর', 'কাশিয়ানী', 'কোটালীপাড়া', 'মুকসুদপুর', 'টুঙ্গিপাড়া'], 'কিশোরগঞ্জ': ['অষ্টগ্রাম', 'বাজিতপুর', 'ভৈরব', 'হোসেনপুর', 'ইটনা', 'করিমগঞ্জ', 'কটিয়াদী', 'কিশোরগঞ্জ সদর', 'কুলিয়ারচর', 'মিঠামইন', 'নিকলী', 'পাকুন্দিয়া', 'তাড়াইল'], 'মাদারীপুর': ['কালকিনি', 'মাদারীপুর সদর', 'রাজৈর', 'শিবচর', 'ডাসার'], 'মানিকগঞ্জ': ['দৌলতপুর', 'ঘিওর', 'হরিরামপুর', 'মানিকগঞ্জ সদর', 'সাটুরিয়া', 'শিবালয়', 'সিংগাইর'], 'মুন্সিগঞ্জ': ['গজারিয়া', 'লৌহজং', 'মুন্সিগঞ্জ সদর', 'সিরাজদিখান', 'শ্রীনগর', 'টংগীবাড়ী'], 'নারায়ণগঞ্জ': ['আড়াইহাজার', 'বন্দর', 'নারায়ণগঞ্জ সদর', 'রূপগঞ্জ', 'সোনারগাঁ'], 'নরসিংদী': ['বেলাবো', 'মনোহরদী', 'নরসিংদী সদর', 'পলাশ', 'রায়পুরা', 'শিবপুর'], 'রাজবাড়ী': ['বালিয়াকান্দি', 'গোয়ালন্দ', 'কালুখালী', 'পাংশা', 'রাজবাড়ী সদর'], 'শরীয়তপুর': ['ভেদরগঞ্জ', 'ডামুড্যা', 'গোসাইরহাট', 'নড়িয়া', 'শরিয়তপুর সদর', 'জাজিরা'], 'টাঙ্গাইল': ['বাসাইল', 'ভূঞাপুর', 'দেলদুয়ার', 'ধনবাড়ী', 'ঘাটাইল', 'গোপালপুর', 'কালিহাতী', 'মধুপুর', 'মির্জাপুর', 'নাগরপুর', 'সখিপুর', 'টাঙ্গাইল সদর'], 'বাগেরহাট': ['চিতলমারী', 'ফকিরহাট', 'কচুয়া', 'মোল্লাহাট', 'মোংলা', 'মোরেলগঞ্জ', 'রামপাল', 'শরণখোলা', 'বাগেরহাট সদর'], 'চুয়াডাঙ্গা': ['আলমডাঙ্গা', 'চুয়াডাঙ্গা সদর', 'দামুড়হুদা', 'জীবননগর'], 'যশোর': ['অভয়নগর', 'বাঘারপাড়া', 'চৌগাছা', 'ঝিকরগাছা', 'কেশবপুর', 'মনিরামপুর', 'শার্শা', 'যশোর সদর'], 'ঝিনাইদহ': ['ঝিনাইদহ সদর', 'কালীগঞ্জ', 'কোটচাঁদপুর', 'মহেশপুর', 'শৈলকুপা', 'হরিণাকুন্ডু'], 'খুলনা': ['বটিয়াঘাটা', 'দাকোপ', 'ডুমুরিয়া', 'দিঘলিয়া', 'কয়রা', 'পাইকগাছা', 'ফুলতলা', 'রূপসা', 'তেরখাদা'], 'কুষ্টিয়া': ['ভেড়ামারা', 'দৌলতপুর', 'কুমারখালী', 'কুষ্টিয়া সদর', 'মিরপুর', 'খোকসা'], 'মাগুরা': ['মাগুরা সদর', 'মহম্মদপুর', 'শালিখা', 'শ্রীপুর'], 'মেহেরপুর': ['গাংনী', 'মুজিবনগর', 'মেহেরপুর সদর'], 'নড়াইল': ['কালিয়া', 'লোহাগড়া', 'নড়াইল সদর'], 'সাতক্ষীরা': ['আশাশুনি', 'দেবহাটা', 'কলারোয়া', 'কালিগঞ্জ', 'সাতক্ষীরা সদর', 'শ্যামনগর', 'তালা'], 'বান্দরবান': ['আলীকদম', 'বান্দরবান সদর', 'লামা', 'নাইক্ষ্যংছড়ি', 'রোয়াংছড়ি', 'রুমা', 'থানচি'], 'ব্রাহ্মণবাড়িয়া': ['আখাউড়া', 'আশুগঞ্জ', 'বাঞ্ছারামপুর', 'বিজয়নগর', 'ব্রাহ্মণবাড়িয়া সদর', 'কসবা', 'নবীনগর', 'নাসিরনগর', 'সরাইল'], 'চাঁদপুর': ['চাঁদপুর সদর', 'ফরিদগঞ্জ', 'হাইমচর', 'হাজীগঞ্জ', 'কচুয়া', 'মতলব উত্তর', 'মতলব দক্ষিণ', 'শাহরাস্তি'], 'চট্টগ্রাম': ['আনোয়ারা', 'বাঁশখালী', 'বোয়ালখালী', 'চন্দনাইশ', 'ফটিকছড়ি', 'হাটহাজারী', 'লোহাগাড়া', 'মীরসরাই', 'পটিয়া', 'রাঙ্গুনিয়া', 'রাউজান', 'সন্দ্বীপ', 'সাতকানিয়া', 'সীতাকুণ্ড', 'কর্ণফুলী'], 'কক্সবাজার': ['চকরিয়া', 'কক্সবাজার সদর', 'কুতুবদিয়া', 'মহেশখালী', 'পেকুয়া', 'রামু', 'টেকনাফ', 'উখিয়া', 'ঈদগাঁও'], 'কুমিল্লা': ['বরুড়া', 'ব্রাহ্মণপাড়া', 'বুড়িচং', 'চান্দিনা', 'চৌদ্দগ্রাম', 'দাউদকান্দি', 'দেবিদ্বার', 'হোমনা', 'লাকসাম', 'মনোহরগঞ্জ', 'মুরাদনগর', 'নাঙ্গলকোট', 'কুমিল্লা সদর', 'মেঘনা', 'সদর দক্ষিণ', 'তিতাস', 'লালমাই'], 'ফেনী': ['ছাগলনাইয়া', 'দাগনভূঞা', 'ফেনী সদর', 'ফুলগাজী', 'পরশুরাম', 'সোনাগাজী'], 'খাগড়াছড়ি': ['দীঘিনালা', 'খাগড়াছড়ি সদর', 'মহালছড়ি', 'মাটিরাঙ্গা', 'মানিকছড়ি', 'পানছড়ি', 'রামগড়', 'লক্ষীছড়ি', 'গুইমারা'], 'লক্ষ্মীপুর': ['কমলনগর', 'লক্ষ্মীপুর সদর', 'রায়পুর', 'রামগঞ্জ', 'রামগতি', 'চন্দ্রগঞ্জ'], 'নোয়াখালী': ['বেগমগঞ্জ', 'চাটখিল', 'কোম্পানীগঞ্জ', 'হাতিয়া', 'সেনবাগ', 'সোনাইমুড়ী', 'সুবর্ণচর', 'নোয়াখালী সদর', 'কবিরহাট'], 'রাঙ্গামাটি': ['বাঘাইছড়ি', 'বরকল', 'বিলাইছড়ি', 'জুরাছড়ি', 'কাপ্তাই', 'কাউখালী', 'লংগদু', 'নানিয়ারচর', 'রাঙ্গামাটি সদর', 'রাজস্থলী'], 'বগুড়া': ['আদমদিঘি', 'বগুড়া সদর', 'ধুনট', 'দুপচাঁচিয়া', 'গাবতলী', 'কাহালু', 'নন্দিগ্রাম', 'সারিয়াকান্দি', 'শাজাহানপুর', 'শেরপুর', 'শিবগঞ্জ', 'সোনাতলা', 'মোকামতলা'], 'জয়পুরহাট': ['আক্কেলপুর', 'জয়পুরহাট সদর', 'কালাই', 'ক্ষেতলাল', 'পাঁচবিবি'], 'নওগাঁ': ['আত্রাই', 'বদলগাছী', 'ধামইরহাট', 'মান্দা', 'মহাদেবপুর', 'নওগাঁ সদর', 'নিয়ামতপুর', 'পত্নীতলা', 'পোরশা', 'রাণীনগর', 'সাপাহার'], 'নাটোর': ['বাগাতিপাড়া', 'বড়াইগ্রাম', 'গুরুদাসপুর', 'লালপুর', 'নাটোর সদর', 'সিংড়া', 'নলডাঙ্গা'], 'চাঁপাইনবাবগঞ্জ': ['ভোলাহাট', 'গোমস্তাপুর', 'নাচোল', 'শিবগঞ্জ', 'চাঁপাইনবাবগঞ্জ সদর'], 'পাবনা': ['আটঘরিয়া', 'বেড়া', 'ভাঙ্গুড়া', 'চাটমোহর', 'ফরিদপুর', 'ঈশ্বরদী', 'পাবনা সদর', 'সাঁথিয়া', 'সুজানগর'], 'রাজশাহী': ['বাঘা', 'বাগমারা', 'চারঘাট', 'দুর্গাপুর', 'গোদাগাড়ী', 'মোহনপুর', 'পবা', 'পুঠিয়া', 'তানোর'], 'সিরাজগঞ্জ': ['বেলকুচি', 'চৌহালী', 'কামারখন্দ', 'কাজীপুর', 'রায়গঞ্জ', 'শাহজাদপুর', 'সিরাজগঞ্জ সদর', 'তাড়াশ', 'উল্লাপাড়া'], 'হবিগঞ্জ': ['আজমিরীগঞ্জ', 'বাহুবল', 'বানিয়াচং', 'চুনারুঘাট', 'হবিগঞ্জ সদর', 'লাখাই', 'মাধবপুর', 'নবীগঞ্জ', 'শায়েস্তাগঞ্জ'], 'মৌলভীবাজার': ['বড়লেখা', 'জুড়ী', 'কমলগঞ্জ', 'কুলাউড়া', 'মৌলভীবাজার সদর', 'রাজনগর', 'শ্রীমঙ্গল'], 'সুনামগঞ্জ': ['বিশ্বম্ভরপুর', 'ছাতক', 'দিরাই', 'ধর্মপাশা', 'দোয়ারাবাজার', 'জগন্নাথপুর', 'জামালগঞ্জ', 'শাল্লা', 'সুনামগঞ্জ সদর', 'তাহিরপুর', 'শান্তিগঞ্জ', 'মধ্যনগর'], 'সিলেট': ['বালাগঞ্জ', 'বিয়ানীবাজার', 'বিশ্বনাথ', 'কোম্পানীগঞ্জ', 'দক্ষিণ সুরমা', 'ফেঞ্চুগঞ্জ', 'গোলাপগঞ্জ', 'গোয়াইনঘাট', 'জৈন্তাপুর', 'কানাইঘাট', 'সিলেট সদর', 'জকিগঞ্জ', 'ওসমানীনগর'], 'দিনাজপুর': ['বিরামপুর', 'বীরগঞ্জ', 'বিরল', 'বোচাগঞ্জ', 'চিরিরবন্দর', 'ফুলবাড়ী', 'ঘোড়াঘাট', 'হাকিমপুর', 'কাহারোল', 'খানসামা', 'দিনাজপুর সদর', 'নবাবগঞ্জ', 'পার্বতীপুর'], 'গাইবান্ধা': ['ফুলছড়ি', 'গাইবান্ধা সদর', 'গোবিন্দগঞ্জ', 'পলাশবাড়ী', 'সাদুল্লাপুর', 'সাঘাটা', 'সুন্দরগঞ্জ'], 'কুড়িগ্রাম': ['ভুরুঙ্গামারী', 'চর রাজিবপুর', 'চিলমারী', 'কুড়িগ্রাম সদর', 'ফুলবাড়ী', 'নাগেশ্বরী', 'রাজারহাট', 'রৌমারী', 'উলিপুর'], 'লালমনিরহাট': ['আদিতমারী', 'কালীগঞ্জ', 'লালমনিরহাট সদর', 'পাটগ্রাম', 'হাতীবান্ধা'], 'নীলফামারী': ['ডোমার', 'জলঢাকা', 'কিশোরগঞ্জ', 'নীলফামারী সদর', 'সৈয়দপুর', 'ডিমলা'], 'পঞ্চগড়': ['আটোয়ারী', 'বোদা', 'দেবীগঞ্জ', 'পঞ্চগড় সদর', 'তেঁতুলিয়া'], 'রংপুর': ['বদরগঞ্জ', 'কাউনিয়া', 'রংপুর সদর', 'মিঠাপুকুর', 'পীরগাছা', 'পীরগঞ্জ', 'তারাগঞ্জ', 'গংগাচড়া'], 'ঠাকুরগাঁও': ['পীরগঞ্জ', 'বালিয়াডাঙ্গী', 'হরিপুর', 'রাণীশংকৈল', 'ঠাকুরগাঁও সদর', 'ভূল্লী', 'রুহিয়া'], 'জামালপুর': ['বকশীগঞ্জ', 'দেওয়ানগঞ্জ', 'ইসলামপুর', 'জামালপুর সদর', 'মাদারগঞ্জ', 'মেলান্দহ', 'সরিষাবাড়ী'], 'ময়মনসিংহ': ['ভালুকা', 'ধোবাউড়া', 'ফুলবাড়ীয়া', 'গফরগাঁও', 'গৌরীপুর', 'হালুয়াঘাট', 'ঈশ্বরগঞ্জ', 'মুক্তাগাছা', 'ময়মনসিংহ সদর', 'নান্দাইল', 'ফুলপুর', 'তারাকান্দা', 'ত্রিশাল'], 'নেত্রকোণা': ['আটপাড়া', 'বারহাট্টা', 'দুর্গাপুর', 'খালিয়াজুরী', 'কলমাকান্দা', 'কেন্দুয়া', 'মদন', 'মোহনগঞ্জ', 'নেত্রকোণা সদর', 'পূর্বধলা'], 'শেরপুর': ['ঝিনাইগাতী', 'নকলা', 'নালিতাবাড়ী', 'শেরপুর সদর', 'শ্রীবরদী'], 'বরগুনা': ['আমতলী', 'বামনা', 'বরগুনা সদর', 'বেতাগী', 'পাথরঘাটা', 'তালতলী'], 'বরিশাল': ['আগৈলঝাড়া', 'বাবুগঞ্জ', 'বাকেরগঞ্জ', 'বানারীপাড়া', 'বরিশাল সদর', 'গৌরনদী', 'হিজলা', 'মেহেন্দিগঞ্জ', 'মুলাদী', 'উজিরপুর'], 'ভোলা': ['ভোলা সদর', 'বোরহানউদ্দিন', 'চরফ্যাশন', 'দৌলতখান', 'লালমোহন', 'মনপুরা', 'তজুমদ্দিন'], 'ঝালকাঠি': ['ঝালকাঠি সদর', 'কাঁঠালিয়া', 'নলছিটি', 'রাজাপুর'], 'পটুয়াখালী': ['বাউফল', 'দশমিনা', 'দুমকি', 'গলাচিপা', 'কলাপাড়া', 'মির্জাগঞ্জ', 'পটুয়াখালী সদর', 'রাঙ্গাবালী'], 'পিরোজপুর': ['ভান্ডারিয়া', 'কাউখালী', 'মঠবাড়ীয়া', 'নাজিরপুর', 'পিরোজপুর সদর', 'নেছারাবাদ', 'ইন্দুরকানী']}
+BD_GEO = {
 
+    'Dhaka': [
+        'Dhamrai', 'Dohar', 'Keraniganj', 'Nawabganj', 'Savar',
+
+        # Dhaka Metropolitan Police (DMP) Thanas
+        'Adabor', 'Airport', 'Badda', 'Banani', 'Bangshal',
+        'Bhashantek', 'Cantonment', 'Chawkbazar', 'Dakshinkhan',
+        'Darus Salam', 'Demra', 'Dhanmondi', 'Gandaria', 'Gulshan',
+        'Hatirjheel', 'Hazaribagh', 'Jatrabari', 'Kadamtali', 'Kafrul',
+        'Kalabagan', 'Kamrangirchar', 'Khilgaon', 'Khilkhet', 'Kotwali',
+        'Lalbagh', 'Mirpur Model', 'Mohammadpur', 'Motijheel', 'Mugda',
+        'New Market', 'Pallabi', 'Paltan', 'Ramna', 'Rampura',
+        'Rupnagar', 'Sabujbagh', 'Shah Ali', 'Shahbagh', 'Shahjahanpur',
+        'Sher-e-Bangla Nagar', 'Shyampur', 'Sutrapur', 'Tejgaon',
+        'Tejgaon Industrial Area', 'Turag', 'Uttarkhan', 'Uttara East',
+        'Uttara West', 'Vatara', 'Wari'
+    ],
+
+    'Faridpur': [
+        'Alfadanga', 'Bhanga', 'Boalmari', 'Charbhadrasan',
+        'Faridpur Sadar', 'Madhukhali', 'Nagarkanda', 'Sadarpur', 'Saltha'
+    ],
+
+    'Gazipur': [
+        'Gazipur Sadar', 'Kaliakair', 'Kaliganj', 'Kapasia', 'Sreepur'
+    ],
+
+    'Gopalganj': [
+        'Gopalganj Sadar', 'Kashiani', 'Kotalipara',
+        'Muksudpur', 'Tungipara'
+    ],
+
+    'Kishoreganj': [
+        'Ashtagram', 'Bajitpur', 'Bhairab', 'Hossainpur', 'Itna',
+        'Karimganj', 'Katiadi', 'Kishoreganj Sadar', 'Kuliarchar',
+        'Mithamain', 'Nikli', 'Pakundia', 'Tarail'
+    ],
+
+    'Madaripur': [
+        'Kalkini', 'Madaripur Sadar', 'Rajoir', 'Shibchar', 'Dasar'
+    ],
+
+    'Manikganj': [
+        'Daulatpur', 'Ghior', 'Harirampur', 'Manikganj Sadar',
+        'Saturia', 'Shibalaya', 'Singair'
+    ],
+
+    'Munshiganj': [
+        'Gazaria', 'Lohajang', 'Munshiganj Sadar',
+        'Sirajdikhan', 'Sreenagar', 'Tongibari'
+    ],
+
+    'Narayanganj': [
+        'Araihazar', 'Sonargaon', 'Narayanganj Sadar',
+        'Rupganj', 'Bandar'
+    ],
+
+    'Narsingdi': [
+        'Belabo', 'Monohardi', 'Narsingdi Sadar',
+        'Palash', 'Raipura', 'Shibpur'
+    ],
+
+    'Rajbari': [
+        'Baliakandi', 'Goalanda', 'Kalukhali',
+        'Pangsha', 'Rajbari Sadar'
+    ],
+
+    'Shariatpur': [
+        'Bhedarganj', 'Damudya', 'Gosairhat',
+        'Naria', 'Shariatpur Sadar', 'Zajira'
+    ],
+
+    'Tangail': [
+        'Basail', 'Bhuapur', 'Delduar', 'Dhanbari',
+        'Ghatail', 'Gopalpur', 'Kalihati', 'Madhupur',
+        'Mirzapur', 'Nagarpur', 'Sakhipur', 'Tangail Sadar'
+    ],
+
+    'Bagerhat': [
+        'Chitalmari', 'Fakirhat', 'Kachua', 'Mollahat',
+        'Mongla', 'Morrelganj', 'Rampal', 'Sharankhola',
+        'Bagerhat Sadar'
+    ],
+
+    'Chuadanga': [
+        'Alamdanga', 'Chuadanga Sadar', 'Damurhuda', 'Jibannagar'
+    ],
+
+    'Jashore': [
+        'Abhaynagar', 'Bagherpara', 'Chaugachha', 'Jhikargachha',
+        'Keshabpur', 'Jashore Sadar', 'Manirampur', 'Sharsha'
+    ],
+
+    'Jhenaidah': [
+        'Harinakunda', 'Jhenaidah Sadar', 'Kaliganj',
+        'Kotchandpur', 'Maheshpur', 'Shailkupa'
+    ],
+
+    'Khulna': [
+        'Batiaghata', 'Dacope', 'Dumuria', 'Koyra',
+        'Paikgachha', 'Phultala', 'Rupsa', 'Terokhada', 'Dighalia'
+    ],
+
+    'Kushtia': [
+        'Bheramara', 'Daulatpur', 'Khoksa', 'Kumarkhali',
+        'Kushtia Sadar', 'Mirpur'
+    ],
+
+    'Magura': [
+        'Magura Sadar', 'Mohammadpur', 'Shalikha', 'Sreepur'
+    ],
+
+    'Meherpur': [
+        'Gangni', 'Mujibnagar', 'Meherpur Sadar'
+    ],
+
+    'Narail': [
+        'Kalia', 'Lohagara', 'Narail Sadar'
+    ],
+
+    'Satkhira': [
+        'Assasuni', 'Debhata', 'Kalaroa', 'Kaliganj',
+        'Satkhira Sadar', 'Shyamnagar', 'Tala'
+    ],
+
+    'Bandarban': [
+        'Alikadam', 'Bandarban Sadar', 'Lama',
+        'Naikhongchhari', 'Rowangchhari', 'Ruma', 'Thanchi'
+    ],
+
+    'Brahmanbaria': [
+        'Akhaura', 'Ashuganj', 'Bancharampur', 'Bijoynagar',
+        'Brahmanbaria Sadar', 'Kasba', 'Nabinagar',
+        'Nasirnagar', 'Sarail'
+    ],
+
+    'Chandpur': [
+        'Chandpur Sadar', 'Faridganj', 'Haimchar', 'Hajiganj',
+        'Kachua', 'Matlab South', 'Matlab North', 'Shahrasti'
+    ],
+
+    'Chattogram': [
+        'Anwara', 'Banshkhali', 'Boalkhali', 'Chandanaish',
+        'Fatikchhari', 'Hathazari', 'Lohagara', 'Mirsharai',
+        'Patiya', 'Rangunia', 'Raozan', 'Sandwip',
+        'Satkania', 'Sitakunda', 'Karnaphuli'
+    ],
+
+    'Cumilla': [
+        'Barura', 'Brahmanpara', 'Burichang', 'Chandina',
+        'Chauddagram', 'Adarsha Sadar', 'Sadar South',
+        'Daudkandi', 'Debidwar', 'Homna', 'Laksam',
+        'Monoharganj', 'Meghna', 'Muradnagar', 'Nangalkot',
+        'Titas', 'Lalmai'
+    ],
+
+    'Coxs Bazar': [
+        'Chakaria', 'Coxs Bazar Sadar', 'Kutubdia', 'Maheshkhali',
+        'Pekua', 'Ramu', 'Teknaf', 'Ukhia', 'Eidgaon'
+    ],
+
+    'Feni': [
+        'Chhagalnaiya', 'Daganbhuiyan', 'Feni Sadar',
+        'Fulgazi', 'Parshuram', 'Sonagazi'
+    ],
+
+    'Khagrachhari': [
+        'Dighinala', 'Manikchhari', 'Khagrachhari Sadar',
+        'Lakshmichhari', 'Mahalchhari', 'Matiranga',
+        'Panchhari', 'Ramgarh', 'Guimara'
+    ],
+
+    'Lakshmipur': [
+        'Kamalnagar', 'Lakshmipur Sadar', 'Raipur',
+        'Ramganj', 'Ramgati', 'Chandraganj'
+    ],
+
+    'Noakhali': [
+        'Begumganj', 'Chatkhil', 'Companiganj', 'Hatiya',
+        'Kabirhat', 'Senbagh', 'Sonaimuri',
+        'Subarnachar', 'Noakhali Sadar'
+    ],
+
+    'Rangamati': [
+        'Baghaichhari', 'Barkal', 'Kawkhali', 'Kaptai',
+        'Juraichhari', 'Langadu', 'Naniarchar',
+        'Rangamati Sadar', 'Rajasthali', 'Bilaichhari'
+    ],
+
+    'Bogura': [
+        'Adamdighi', 'Bogura Sadar', 'Dhunat', 'Dupchanchia',
+        'Gabtali', 'Kahaloo', 'Nandigram', 'Sariakandi',
+        'Shajahanpur', 'Sherpur', 'Shibganj', 'Sonatala',
+        'Mokamtala'
+    ],
+
+    'Joypurhat': [
+        'Akkelpur', 'Joypurhat Sadar', 'Kalai',
+        'Panchbibi', 'Khetlal'
+    ],
+
+    'Naogaon': [
+        'Atrai', 'Dhamoirhat', 'Manda', 'Mahadevpur',
+        'Naogaon Sadar', 'Niamatpur', 'Patnitala',
+        'Raninagar', 'Sapahar', 'Badalgachhi', 'Porsha'
+    ],
+
+    'Natore': [
+        'Bagatipara', 'Baraigram', 'Gurudaspur',
+        'Lalpur', 'Natore Sadar', 'Singra', 'Naldanga'
+    ],
+
+    'Chapainawabganj': [
+        'Shibganj', 'Bholahat', 'Gomastapur',
+        'Nachole', 'Chapainawabganj Sadar'
+    ],
+
+    'Pabna': [
+        'Atgharia', 'Bera', 'Bhangura', 'Chatmohar',
+        'Faridpur', 'Ishwardi', 'Pabna Sadar',
+        'Santhia', 'Sujanagar'
+    ],
+
+    'Rajshahi': [
+        'Bagha', 'Bagmara', 'Charghat', 'Durgapur',
+        'Godagari', 'Mohanpur', 'Paba', 'Puthia', 'Tanore'
+    ],
+
+    'Sirajganj': [
+        'Belkuchi', 'Chauhali', 'Kamarkhanda', 'Kazipur',
+        'Raiganj', 'Shahjadpur', 'Sirajganj Sadar',
+        'Tarash', 'Ullapara'
+    ],
+
+    'Habiganj': [
+        'Ajmiriganj', 'Bahubal', 'Baniachong', 'Chunarughat',
+        'Habiganj Sadar', 'Lakhai', 'Madhabpur',
+        'Nabiganj', 'Shayestaganj'
+    ],
+
+    'Moulvibazar': [
+        'Barlekha', 'Juri', 'Kamalganj', 'Kulaura',
+        'Moulvibazar Sadar', 'Rajnagar', 'Sreemangal'
+    ],
+
+    'Sunamganj': [
+        'Bishwambharpur', 'Chhatak', 'Derai', 'Dharmapasha',
+        'Dowarabazar', 'Jagannathpur', 'Jamalganj',
+        'Shalla', 'Sunamganj Sadar', 'Tahirpur',
+        'Shantiganj', 'Madhyanagar'
+    ],
+
+    'Sylhet': [
+        'Balaganj', 'Beanibazar', 'Bishwanath',
+        'Companiganj', 'Dakshin Surma', 'Fenchuganj',
+        'Golapganj', 'Gowainghat', 'Jaintiapur',
+        'Kanaighat', 'Sylhet Sadar', 'Zakiganj', 'Osmani Nagar'
+    ],
+
+    'Dinajpur': [
+        'Birampur', 'Birganj', 'Biral', 'Bochaganj',
+        'Chirirbandar', 'Phulbari', 'Ghoraghat', 'Hakimpur',
+        'Kaharole', 'Khansama', 'Nawabganj',
+        'Parbatipur', 'Dinajpur Sadar'
+    ],
+
+    'Gaibandha': [
+        'Phulchhari', 'Gaibandha Sadar', 'Gobindaganj',
+        'Palashbari', 'Sadullapur', 'Saghatta', 'Sundarganj'
+    ],
+
+    'Kurigram': [
+        'Phulbari', 'Bhurungamari', 'Char Rajibpur',
+        'Chilmari', 'Kurigram Sadar', 'Nageshwari',
+        'Rajarhat', 'Rowmari', 'Ulipur'
+    ],
+
+    'Lalmonirhat': [
+        'Aditmari', 'Hatibandha', 'Kaliganj',
+        'Lalmonirhat Sadar', 'Patgram'
+    ],
+
+    'Nilphamari': [
+        'Domar', 'Jaldhaka', 'Kishoreganj',
+        'Nilphamari Sadar', 'Saidpur', 'Dimla'
+    ],
+
+    'Panchagarh': [
+        'Atwari', 'Boda', 'Debiganj',
+        'Panchagarh Sadar', 'Tetulia'
+    ],
+
+    'Rangpur': [
+        'Badarganj', 'Kaunia', 'Rangpur Sadar',
+        'Mithapukur', 'Pirganj', 'Pirganj',
+        'Taraganj', 'Gangachara'
+    ],
+
+    'Thakurgaon': [
+        'Pirganj', 'Baliadangi', 'Haripur',
+        'Ranisankail', 'Thakurgaon Sadar',
+        'Bhulli', 'Ruhia'
+    ],
+
+    'Jamalpur': [
+        'Bakshiganj', 'Dewanganj', 'Islampur',
+        'Jamalpur Sadar', 'Madarganj', 'Melandaha',
+        'Sarishabari'
+    ],
+
+    'Mymensingh': [
+        'Bhaluka', 'Dhobaura', 'Phulpur', 'Gaffargaon',
+        'Gauripur', 'Haluaghat', 'Ishwarganj',
+        'Mymensingh Sadar', 'Muktagachha', 'Nandail',
+        'Phulpur', 'Tarakanda', 'Trishal'
+    ],
+
+    'Netrokona': [
+        'Atpara', 'Barhatta', 'Durgapur', 'Khaliajuri',
+        'Kalmakanda', 'Kendua', 'Madan', 'Mohanganj',
+        'Netrokona Sadar', 'Purbadhala'
+    ],
+
+    'Sherpur': [
+        'Jhenaigati', 'Nakla', 'Nalitabari',
+        'Sherpur Sadar', 'Sreebardi'
+    ],
+
+    'Barguna': [
+        'Amtali', 'Bamna', 'Barguna Sadar',
+        'Betagi', 'Patharghata', 'Taltali'
+    ],
+
+    'Barishal': [
+        'Agailjhara', 'Babuganj', 'Bakerganj', 'Banaripara',
+        'Gournadi', 'Hizla', 'Barishal Sadar',
+        'Mehendiganj', 'Muladi', 'Wazirpur'
+    ],
+
+    'Bhola': [
+        'Bhola Sadar', 'Borhanuddin', 'Daulatkhan',
+        'Lalmohan', 'Manpura', 'Tazumuddin', 'Char Fasson'
+    ],
+
+    'Jhalokathi': [
+        'Jhalokathi Sadar', 'Nalchity', 'Kathalia', 'Rajapur'
+    ],
+
+    'Patuakhali': [
+        'Bauphal', 'Dashmina', 'Dumki', 'Kalapara',
+        'Mirzaganj', 'Patuakhali Sadar',
+        'Rangabali', 'Galachipa'
+    ],
+
+    'Pirojpur': [
+        'Bhandaria', 'Kawkhali', 'Mathbaria', 'Nazirpur',
+        'Pirojpur Sadar', 'Nesarabad', 'Indurkani'
+    ]
+}
 __all__ = ['BD_GEO']
